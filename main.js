@@ -7,44 +7,40 @@ let newBox = ``;
 let data = [];
 
 
+// fetch('https://api.giphy.com/v1/gifs/trending?api_key=1pE96dSG5FunJmP1rGWZOHXunKlr8JDU').then((res)=>res.json()).then((data)=>{
+//     console.log(data)
+//     newBox = ``;
+//     data.data.forEach((item)=>{
+//         let box =`<div class="box">
+//         <img src=${item.images['480w_still'].url} alt=""/>
+//         </div>`
+//         newBox = newBox + box ;
+//         boxes.innerHTML=newBox;
+//     })
+// }).catch(err => boxes.innerHTML =err);
+
+
+const callApi =async (url)=>{
+try{ const res  =await fetch(url);
+ const data = await res.json();
+    newBox = ``;
+    data.data.forEach((item)=>{
+        let box =`<div class="box">
+        <img src=${item.images['480w_still'].url} alt=""/>
+        </div>`
+        newBox = newBox + box ;
+        boxes.innerHTML=newBox;
+    })
+}catch (error) {
+    boxes.innerHTML = error;
+  }
+}
+
+
+callApi('https://api.giphy.com/v1/gifs/trending?api_key=1pE96dSG5FunJmP1rGWZOHXunKlr8JDU')
+
 button.addEventListener('click', (e)=>{
     window.scrollTo(22,document.body.scrollHeight);
     button.style.display = 'none';
 })
 
-
-
-// const callApi = async (method ,url)=>{
-//     const xhr = new XMLHttpRequest();
-//     xhr.open(method, url,true);
-//     xhr.send();
-//     return new Promise((resolve,reject) =>{
-//         xhr.onreadystatechange = () =>{
-//             if(xhr.readyState ==4 && xhr.status ==200){
-//                 resolve(JSON.parse(xhr.response));
-//             }else if(xhr.readyState ==4 && xhr.status !==200){
-//                 reject(Error('sth went wrong'));
-//             }
-//         };
-//     })
-
-// }
-// boxes.innerHTML='Loading ...'
-// callApi('GET','https://jsonplaceholder.typicode.com/posts').then((response)=>
-// {
-//     console.log(response)
-//     newBox = ``;
-//     response.forEach((item)=>{
-//         let box =`<div class="box">
-//                 <h4 class="box-title">${item.title}</h4>
-//                 <p class="box-description">${item.body}</p>
-//                 <div class="box-spans">
-//                     <span class="span-one">P1</span>
-//                     <span class="span-two">Health</span>
-//                 </div>
-//         </div>`
-//         newBox = newBox + box ;
-//         boxes.innerHTML=newBox;
-//     })
-// }
-// );
